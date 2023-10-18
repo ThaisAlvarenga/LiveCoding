@@ -1,0 +1,99 @@
+-- my idea is to have nature like sounds that are combined with beats
+
+-- Start at d1, run 4 then d2 run 6
+xfade 2 $ s "tink" <| n (run 6) # speed 0.125 # gain 0.7  -- high metallic sounds
+d6 $ s "tok ?" <| n (run 6) # gain 0.7-- four kick sounds
+
+-- first as d1 then as d5
+xfade 5 $ slow 4 $ s "em2 ?" <| n (run 6) # gain 0.5-- flue  kalimba
+
+-- then this
+
+d5 silence
+
+-- this one
+d1 $ slow 6 $ s "birds" <| n (run 10) # gain "0.6" # pan (slow 1 saw) -- bird
+
+-- this one
+d4 $ slow 5 $ s "fire" # gain "0.6"-- fire
+
+
+d6 silence
+d3 silence
+d1 silence
+d4 silence
+
+hush
+
+d3 $ fast 2 $ s "808lt?" <| n (run 1) # gain "0.7" -- 5 808 low toms
+
+
+
+
+
+
+
+
+
+
+hush
+d1 $ note "[[c3*3],[c e g c6*3]]" # s "superpiano"
+
+
+
+
+
+
+
+-- i like all of this
+d2 $ fast 2 $ s "808hc" <| n (run 5) -- 5 808 high congas
+d1 $ fast 2 $ s "808ht" <| n (run 5) -- 5 808 high toms, bit noisy
+d1 $ fast 2 $ s "808lc" <| n (run 5) -- 5 808 low congas, noisy
+d1 $ fast 2 $ s "808mc" <| n (run 5) -- 5 808 medium congas
+
+-- this is nice
+d1 $ slow 2 $ s "ab" <| n (run 12) -- nice subtle drum sounds
+
+
+-- this is good
+d1 $ s "ades2" <| n (run 9) # gain 1.3 -- meh, short quiet noisy sounds
+
+-- i like this
+d1 $ loopAt 2 $ s "alex:1 alex:2" -- two acoustic drum loops
+
+-- this is one
+d1 $ loopAt 8 $ s "bev:1" -- eight bar vocal keyboard/bass loop (mono)
+
+
+-- this is good
+d1 $ s "blip" <| n (run 13) -- two short pitched sounds, minor seventh apart
+
+-- this is nice
+d1 $ s "bubble" <| n (run 8) -- actually sound more or less like kicks
+
+-- these are nice too
+d1 $ s "can" <| n (run 14) -- intersting percussive sounds
+d1 $ s "can" <| n (run 16) # speed "0.125 1!15" -- iya
+
+-- ok i guess
+d1 $ s "casio" <| n (run 3) -- just three cheapo 'drum' sounds
+
+d1 $ s "clak" <| n (run 2) # gain 2 -- two quiet typewriters clicks, or clock ticks?
+
+--this
+d1 $ s "coins" # gain 2 -- very quiet coin chink
+
+
+
+-- this first
+d1 $ slow 2 $ s "east" <| n (run 9) -- 9 'world' drum sounds, ok
+-- i like this as an accent
+d1 $ slow 2 $ s "feelfx" <| n (run 8) -- varied effected sounds, bit longer, ok
+
+--i like this one too
+d1 $ s "notes" <| n (run 15) -- same as newnotes, sines
+
+-- i like this one
+d1 $ s "tink" <| n (run 5) # speed 0.125 -- high metallic sounds, pitched down iya
+
+hush

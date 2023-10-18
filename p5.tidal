@@ -1,0 +1,19 @@
+d1 $ s "bd bd bd bd"
+d2 $ s "cp ~ cp ~"
+
+d5 $ s "gabba ~ ~ gabba"
+--lucerio
+d14 $ ccv "60 1 1 120" # ccn "4" # s "midi"
+
+d3 $ every 2 rev $ n "0 1 [~ 2] 3" # sound "arpy"
+d15 $ ccv "0 [6 60] 120" # ccn "2" # s "midi"
+
+d4 $ s "trump:2 ~ trump:1 ~"
+
+--adornos
+d13 $ ccv"1" # ccn "3" # s "midi"
+
+d12 $ ccv "0" # ccn "1" # s "midi"
+
+
+hush

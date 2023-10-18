@@ -1,0 +1,103 @@
+hush
+
+d1 $ s "bd cp bd cp"
+
+d2 $ ccv "<127 0 127 0>" # ccn 1 # s "midi"
+
+d3 $ jux rev $ off 0.25(|+ n 12) $  off 0.125(|+ n 7) $n "<c(3,8) a*2 f(3,8,2) [~e*2]>" # sound "supermandolin" # legato 4
+d4 $ ccv (stitch "<t(3,8) t t(3,8,2) t>" 127 0) # ccn 0 # s "midi"
+
+
+d5 $ fast 2 $ s "<808lt>" <| n (run 2) # gain 0.9
+
+d6 $ ccv "0 20 64 127" # ccn "2" # s "midi"
+
+
+
+
+
+-- Beat 0
+d1 $ s "~ cp ~ cp"
+d1 silence
+
+d2 $ ccv "<127 0 127 0>" # ccn 1 # s "midi"
+
+d4 silence
+
+--beat 1
+d3 $ jux rev $ off 0.25(|+ n 12) $ off 0.125(|+ n 7) $ n "<c(3,8) a*2 f(3,8,2) [~e*2]>" # sound "supermandolin" # legato 4
+
+d3 silence
+
+d4 $ ccv (stitch "<t(3,8) t t(3,8,2) t>" 127 0) # ccn 0 # s "midi"
+d2 silence
+
+-- beat 2
+
+d5 $ jux rev $ off 0.25(|+ n 12) $ fast 2 $ s "<808lt>" <| n (run 2) # gain 0.9
+
+d5 $ jux rev $ off 0.25(|+ n 12) $ s "808lt" <| n (run 2)
+
+d6 $ ccv "0 20 64 127" # ccn "2" # s "midi"
+
+hush
+
+
+
+
+
+
+
+
+
+
+
+d2 $ ccv (stitch "<t(3,8) t t t>" 127 0) # ccn 2 # s "midi"
+
+d3 silence
+
+-- beat
+d1 $ sound "[<808bd:4(3,8) 808bd:4(5,8) 808bd:4(3,8) 808bd:4>, ~ 808:3]" # room 0.95 # krush 9 # speed (slow 4 ("<1.5 1>"))
+
+-- adjust every cycle with saw wave with every 4 cycles double speed
+d2 $ rotL 1 $ every 4 (# ccv (fast 2 (range 127 0 saw))) $ ccv (segment 128 (range 127 0 saw)) # ccn "0"  # s "midi"
+
+hush
+
+-- Beat 0
+d3 $ s "bd hh bd hh"
+-- Beat 1
+d1 $ s "hh:2 ~ hh:3 cp"
+
+
+d1 $ s "hh:1 ~ hh:3 cp hh:2 ~"
+
+d1 $ slow 2 $ s "birds3" <| n (run 19) -- very short noisy sounds, highish pitch
+
+d1 $ s "crow" <| n (run 4)
+
+
+
+
+-- CC values
+
+-- Beat 0
+d2 $ ccv "0 20 64 127" # ccn "0" # s "midi"
+
+-- making a euclidean rhythm be all the way on or off
+-- with stitch you have to write [t f]
+d2 $ ccv (stitch "<t(3,8) t(5,8) t(3,8) [t f]>" 127 0) # ccn 0 # s "midi"
+
+-- contrast that with combining with a conituous osc
+-- structs takes a true false pattern and applies it to something else
+--  struct doesn't need the false to be de
+d2 $ struct "<t(3,8) t(5,8) t(3,8) t*2>" $ ccv ((segment 128 (range 127 0 saw))) # ccn "0" # s "midi"
+
+-- combine the two with two different outs and then add together in hydra
+-- this one sends to cc number 2
+d2 $ rotL 1 $ every 4 (# ccv (fast 2 (range 64 0 saw))) $ ccv (segment 128 (range 64 0 saw)) # ccn "0" # s "midi"
+
+d3 $ struct "<t(3,8) t(5,8) t(3,8) t>" $ ccv (segment 128 (slow 4 (range 100 0 saw))) # ccn "1" # s "midi"
+
+-- hydra luma value (control something else)
+d4 $ ccv (segment 128 (slow 4 (range 127 0 saw))) # ccn "2" # s "midi"

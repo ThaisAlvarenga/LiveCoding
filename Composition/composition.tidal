@@ -1,0 +1,134 @@
+-- import tidal cycles scales
+import Sound.Tidal.Chords
+-- print out a list of scales
+scaleList
+
+chordList
+chordTable
+
+hush
+
+-- s if for sharp (sostenido)
+-- f is for flat (bemol)
+
+d1 $ every 4 (+ "c6 as a as") $ ghost $ slow 2 $ s "superpiano" <| n "bf a g d"# room 0.5
+
+d1 $ ghost $ slow 2 $ s "tink" <| n "bf a g d" # room 0.5
+
+mystrings = stack[
+  s "pluck" <| note ("c6 as a as" + 12),
+  s "pluck" <| note ("c6 as a as" + 24),
+  s "pluck" <| note ("c6 as a as" + 8)]
+
+d1 $ hihatBuild
+
+hihatBuild = stack[
+  s "~ cp" # room 0.5,
+  fast 2 $ s "gtr*2 gtr*2 gtr*2 <gtr*6 3>" # room 0.7 # gain (range 1 1.2 rand)
+  ] # speed (slow 4 (range 1 2 saw))
+
+
+
+d2 $ slow 4 $ s "superpiano" <| n "[a g f ~] [b a g ~] [c6 b a e] [g] "
+
+d1 $ slow 4 $ s "voodoo:4" <| note (("[a g f ~] [b a g ~] [c6 b a e] [g] ") - 12) # room 0.3
+
+--do a -12 to mkae it be lower
+d1 $ s "~ ~ ~ voodoo:4"
+
+d2 $ "bd bd sd ~"
+
+truths speed t = slow speed $ mask t $ sound "clubkick clubkick clubkick [clubkick clubkick clubkick]"
+
+d4 $ truths 1 "t t t t"
+
+d3 $ mask " t t t ~ t t t" $ s "sn*8"
+
+
+
+
+-- beat
+d3 $ slow 2 $ mask " t t t t" $ sound "clubkick clubkick clubkick [clubkick clubkick clubkick]"
+
+d4 $ ccv "20 50 60 110" # ccn 0 # s "midi"
+
+
+
+
+
+
+let scale = getScale (scaleTable ++ [("techno", [0,2,3,5,7,8,10]),("broken", [0,1,4,7,8,10])])
+
+d1 $ n (arpg "'major7 [0,4,7,11]") # sound "superpiano"
+
+hush
+
+d1 "cp"
+
+d1 $ fast 4 $ off 0.25 (# crush 2) $ sound "hh" # gain "[0.2, 1, 0.9]"
+
+d1 $ slow 4 $
+  n (off 0.25 (+12) $ off 0.125 (+2) $ "c(3,8) a(3,8) f(3,8) e(3,8,)")
+  # sound "superpiano"
+
+d1 $ slow 2 $
+  n (off 0.25 (+12) $ off 0.125 (+7) $ "c(3,8) a(3,8,2) f(3,8) e(3,8,4)")
+  # sound "pluck"
+
+d1 $ slow 2 $
+  n (off 0.25 (+12) $ off 0.125 (+7) $ "c(3,8) a(3,8,2) f(3,8) e(3,8,4)")
+  # sound "pluck"
+
+hush
+
+d1 $ s "gtr*4" <| n "c d e f g a b c"
+
+hush
+d2 $ s "superpiano" # n "[b3,fs4]"
+d2 $ slow 4 $ s "superpiano" <| n "c d f g a c6 d6 f6 g6 a6 c7"
+
+d1 $ s "~ cp" # room 0.5
+
+
+d1 $ off 0.125 (# crush 2) $ sound "bd*5"
+
+
+
+
+
+
+
+-- i like this for the intro
+d1 $ jux rev $ s "sine*8" # note (scale "iwato" "0 .. 8" + "f3" ) # room 0.9 # gain 0.6
+xfade 2 $ s "hh*8"
+
+d1 $ slow 4 $ s "superpiano" <| note (scale "major" "0 .. 8") # room 0.4
+
+d1 $ s "sax" # note (arp "updown"(scale "major" ("[0,2,4,6]" +" <0 0 9 8>") + "f5")) # gain 0.6
+
+d1 silence
+
+d1 $ "jungbass:7"
+d1 $ jux rev $"jungbass:13"
+
+thisIsA howFast soundPattern = fast howFast $ s soundPattern
+
+do
+  let myBeat = "hh*8"
+  d2 $ thisIsA 3 myBeat
+
+-- alternate between this two
+d2 $ fast 2 $ s "supersaw" >| note (arp "updown" (scale "major" ("[0,2,4,6]"+"<0 0 9 8>") + "f2")) # room 0.4 # gain 0.7
+
+d2 $ fast 2 $ s "supersaw" >| note (arp "updown" (scale "major" ("[0,2,4,6]"+"<0 0 2 3>") + "f3")) # room 0.4 # gain 0.7
+
+d2 $ fast 2 $ s "supersaw" >| note (arp "up" (scale "major" (" [0 2] 4 6 8" + "<9 4 2>")) + "f2") # room 1
+
+d4 $ ccv "20 50 60 [70 90 110]" # ccn "0" # s "midi"
+
+d4 $ ccv "20 50 60 110" # ccn "1" # s "midi"
+
+hush
+
+chordList
+chordTable

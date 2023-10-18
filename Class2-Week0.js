@@ -1,5 +1,5 @@
 //Evaluation with atom is Shift+Enter
-
+hush()
 //oscillator
 osc().out()
 //thresh will take pixels above a certain brightness value and output white
@@ -9,12 +9,12 @@ osc().thresh().out()
 osc().posterize().out()
 //pixelate works similarly
 //second parameter for osc is the speed
-osc(40,.01).pixelate(2).out()
+osc(50,.01).pixelate(2).out()
 //third param is color!
 osc(40,.1,.75).out()
 
 //kaleid
-osc(40,.1,.75).kaleid(99).out()
+osc(4,.1,.75).kaleid(99).out()
 //scale
 osc(40,.1,.75).kaleid(99).scale(1,window.innerHeight/window.innerWidth,1).out()
 // ()=> is a shorthand way to write a function in javascript
@@ -39,29 +39,33 @@ noise(3,0.1).add(osc(5,0.1,0.5)).out()
 voronoi(3,0).mult(osc(5,0.1,0.5)).out()
 
 //clear the screen
+//it also turnes everything off
 hush()
 
+solid.out() //kinda like hushes one of the outputs
+
 //modulate
+//modulate does a math operation on the inital oscilator based on the noise
 osc(40,0,1).modulate(noise(3,0.05)).out()
 //conditional with luma
-osc(40,0,1).modulate(noise(3,0.05).luma(0.5,.5)).out()
-//amount of modulation
-osc(40,0,1).modulate(noise(3,0.05),.5).out()
+osc(40,0,1).modulate(noise(3,0.05).luma(0.5,.10)).out() // based on the luminence, it lets some of the noise come through
+//added number control the amount of modulation
+osc(40,0,1).modulate(noise(3,0.05),.1).out()
 
 //what is happening with modulate?
 //big line
 shape(2).out()
-//sine wave
-shape(2).modulate(osc(10)).out()
+//sine wave pattern
+shape(2).modulate(osc(10)).out(o1)
 //make more clear with pixelate (moving things on y axis)
-shape(2).modulate(osc(10).pixelate(10)).out()
+shape(5,.6).modulate(osc(10).pixelate(10)).out(o0)
 //modulate scale
-shape(2).modulateScale(osc(10).pixelate(10),0.9,0.01).out()
+shape(2).modulateScale(osc(10).pixelate(10),0.9,0.01).out(03)
 
 //show all oututs
 render()
 //show one output
-render(o0)
+render(o3)
 
 //modulate by a shape
 //start with osc
@@ -74,7 +78,13 @@ src(o1).mult(shape(3,0.2,0.3)).out(o2)
 src(o0).modulate(src(o2),0.15).out(o3)
 
 //modulateRotate
-src(o0).modulateRotate(shape(99,0.2,0.7).mult(osc(1,.3).brightness(-0.5)),3).out(o3)
+src(o0).modulateRotate(shape(99,0.2,0.7).mult(osc(1,.3).brightness(-0.5)),3).out(o)
+
+noise(2,0.01).pilate(16,16).out(o2)
+
+setTimeout(()=> {
+  osc().out(o3)
+}, 5000)
 
 //modulate pixelate
 //doesn't seem very pixelated!
@@ -94,7 +104,7 @@ osc(10,0,1).modulate(noise(2,0.1)).out(o1)
 //and blend in the square (here is the feedback)
 src(o2).modulate(src(o1)).blend(o0).out(o2)
 //bring down the blend
-src(o2).modulate(src(o1)).blend(o0,.1).out(o2)
+src(o2).modulate(src(o1)).blend(o0,.1).out(o2) //really like this one
 //slow the modulation roll
 src(o2).modulate(src(o1),.01).blend(o0,.1).out(o2)
 //modulation is moving up and to the left, to fix, add an offset to the modulation source:

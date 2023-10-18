@@ -1,0 +1,307 @@
+
+d1 $ s "bd bd cp ~"
+
+d2 $ "clubkick clubkick"
+
+by_The_Ocean
+
+lived_A_Man
+
+who_Manned
+
+d9 $ a_lighthouse 1 "t t t ~"
+
+but_he_didnt_like
+
+the_Ocean
+
+because_it_was_beautiful
+
+but_dangerous
+
+so_when_the
+
+storm_hits
+
+he_has_to
+
+go_up
+
+_the_lighthouse
+
+and_sound
+
+the_alarm
+
+to_warn_people
+
+when_the_storm_stops
+
+the_man_repeats_this
+
+until_the_ocean_is_silent
+
+hush
+
+
+
+-- Evaluate before performance
+
+-- to send cc values
+do
+  d11 $ ccv "20 40 64 127" # ccn "0" # s "midi"
+  d12 $ ccv "0 20 64 127" # ccn "2" # s "midi"
+
+but_he_didnt_like = do
+  d1 $ slow 2 $ s "wind" <| note ("bf a g d") # room 0.5
+  d2 $ slow 2 $ s "newnotes" <| note ("bf a g d") # room 0.5
+  d3 $ slow 2 $ s "gtr" <| note ("bf a g d" + 12) # room 0.5
+  d13 $ ccv "2" # ccn "3" # s "midi"
+
+the_Ocean = do
+  d1 $ every 4 (+ "c6 as a as")$ slow 2 $ s "wind" <| note "bf a g d"# room 0.5
+  d2 $ every 4 (+ "c6 as a as")$ slow 2 $ s "newnotes" <| note "bf a g d"# room 0.5
+  d3 $ every 4 (+ "c6 as a as")$ slow 2 $ s "pluck" <| note ("bf a g d" + 12)# room 0.5
+  d4 $ every 4 (+ "c6 as a as")$ slow 2 $ s "pluck" <| note ("bf a g d")# room 0.5
+  d11 $ ccv "20 40 64 127 [0 10] [70 50] [90] [100]" # ccn "0" # s "midi"
+  d13 $ ccv "3" # ccn "3" # s "midi"
+
+because_it_was_beautiful = do
+  d5 $ slow 2 $ s "em2" <| note ("[e5 d5 ~] [c5 b4 ~] [a4 g4 ~] [f4 e4 ~]") # gain 1.2
+  d6 $ slow 2 $ s "wind" <| note ("[e5 d5 ~] [c5 b4 ~] [a4 g4 ~] [f4 e4 ~]")
+  d7 $ slow 2 $ s "newnotes" <| note ("[e5 d5 ~] [c5 b4 ~] [a4 g4 ~] [f4 e4 ~]" + 12) # gain 1.2
+  d13 $ ccv "4" # ccn "3" # s "midi"
+
+but_dangerous = do
+  d1 $ n (arpg "'major7 [0,4,7,11]") # sound "wind"
+  d2 $ n (arpg "'major7 [0,4,7,11]") # sound "newnotes"
+  d3 $ n (arpg "'major7 [0,4,7,11]" - 12) # sound "pluck"
+  d4 $ n (arpg "'major7 [0,4,7,11]" - 38) # sound "pluck"
+  xfade 5 silence
+  xfade 6 silence
+  xfade 7 silence
+  d13 $ ccv "5" # ccn "3" # s "midi"
+
+-- cuerdas
+so_when_the = do
+  xfade 3 $ slow 2 $
+    n (off 0.25 (+12) $ off 0.125 (+7) $ "c(3,8) a(3,8,2) f(3,8) e(3,8,4)")
+    # sound "pluck"
+  d7 $ s "hh*8"
+
+-- storm is coming
+storm_hits = do d1 $ jux rev $ s "sine*8" # note (scale "iwato" "0 .. 8" + "f3" ) # room 0.9 # gain 0.6
+
+he_has_to = do
+  d1 $ n (arpg "'major7 [0,4,7,11]") # sound "trump"
+  d13 $ ccv "6" # ccn "3" # s "midi"
+
+--storm
+go_up = do
+  d1 $ slow 2 $ s "superpiano" <| note ("[e5 d5 ~] [c5 b4 ~] [a4 g4 ~] [f4 e4 ~]")
+  d2 $ slow 2 $ s "pluck:2" <| note ("[e5 d5 ~] [c5 b4 ~] [a4 g4 ~] [f4 e4 ~]" + 24) # gain 1.2
+  d4 $ slow 2 $ s "gtr" <| note ("[e5 d5 ~] [c5 b4 ~] [a4 g4 ~] [f4 e4 ~]" + 24)
+  d5 $ slow 2 $ s "em2" <| note ("[e5 d5 ~] [c5 b4 ~] [a4 g4 ~] [f4 e4 ~]") # gain 1.2
+  d6 $ slow 2 $ s "wind" <| note ("[e5 d5 ~] [c5 b4 ~] [a4 g4 ~] [f4 e4 ~]")
+  d7 $ slow 2 $ s "newnotes" <| note ("[e5 d5 ~] [c5 b4 ~] [a4 g4 ~] [f4 e4 ~]" + 12) # gain 1.2
+  d8 $ slow 2 $ s "notes" <| note ("[e5 d5 ~] [c5 b4 ~] [a4 g4 ~] [f4 e4 ~]"+ 12) # gain 1.2
+  d13 $ ccv "7" # ccn "3" # s "midi"
+
+_the_lighthouse = do d1 $  fast 2 $ s "hh*2 hh*2 hh*2 <hh*6 [hh*2]!3>" # room 0.7 # gain (range 1 1.2 rand)
+
+and_sound = do
+  d8 $ a_lighthouse 1 "t t t t"
+  d13 $ ccv "8" # ccn "3" # s "midi"
+
+  -- High Hat beat
+the_alarm = do
+  xfade 5 $ alarm
+  d13 $ ccv "9" # ccn "3" # s "midi"
+
+-- maybe the alarm
+to_warn_people = do xfade 9 $ slow 2 $ n (off 0.25 (+12) $ off 0.125 (+7) $ "c(3,8) a(3,8,2) f(3,8) e(3,8,4)") # sound "trump"
+
+-- After buildup
+when_the_storm_stops = do
+  d1 silence
+  d2 silence
+  d3 $ s "sax" # note (arp "updown"(scale "major" ("[0,2,4,6]" +" <0 0 9 8>") + "f5"))
+  d4 silence
+  d5 silence
+  d6 silence
+  d7 silence
+  d8 silence
+  d9 silence
+  d13 $ ccv "10" # ccn "3" # s "midi"
+
+alarm = stack[
+  s "~ trump" # room 0.5,
+  fast 2 $ s "gtr*2 gtr*2 gtr*2 " # room 0.7 # gain (range 1 1.2 rand)] # speed (slow 4 (range 1 2 saw))
+
+-- Ending
+
+the_man_repeats_this = do
+ xfade 1 $ s "em2:2" <| note ("c [d e] c")
+ d3 silence
+ d13 $ ccv "11" # ccn "3" # s "midi"
+
+until_the_ocean_is_silent = do
+  xfade 1 silence
+  d13 $ ccv "12" # ccn "3" # s "midi"
+
+-- Ambience
+by_The_Ocean = do
+  xfade 15 $ slow 4 $ s "sheffield" # gain 0.7 -- ambience
+  d14 $ slow 8 $ s "pebbles" # gain 0.7 -- very long, maybe pebbles on a beach
+  d3 $ slow 8 $ s "birds" <| n (run 4)# legato 1.8
+  d13 $ ccv "0" # ccn "3" # s "midi"
+
+lived_A_Man = do
+  d3 silence
+  d3 $ qtrigger 3 $ slow 8 $ s "em2:2" <| note ("[b ~] [a ~] [g ~] [e ~]")
+
+who_Manned = do
+  d1 $ s "bd bd cp ~"
+  d13 $ ccv "1" # ccn "3" # s "midi"
+
+a_lighthouse speed t = slow speed $ mask t $ sound "clubkick clubkick clubkick [clubkick clubkick clubkick]"
+
+
+hush
+d3 $ slow 8 $ s "birds" <| n (run 4)# legato 1.8
+d3 $ s "tink" <| n (run 5) # speed 0.4
+
+d3 silence
+
+hush
+
+
+-- FAILED  show
+
+-- MELODY
+
+-- el derecho de vivir
+do
+  xfade 3 silence
+  d2 $ qtrigger 2 $ slow 4 $ introMelody
+
+d2 $ slow 3 $ intro2
+
+do
+  d2 $ qtrigger 2 $ slow 2.5 $ kalimString
+  d1 $ slow 2 $ s "bd ~ bd ~"
+
+d2 $ qtrigger 2 $ slow 2.5 $ kalimbas
+
+d2 $ qtrigger 2 $ slow 3 $ kalimTrump
+
+hush
+
+d2 $ slow 3 $ myKalimba1
+
+d2 $ qtrigger 2 $ slow 2 $ enPaz
+
+
+
+enPaz = stack[
+  s "gtr" <| note("[c6 d5] ~"),
+  s "gtr" <| note("[c5 d4] ~"),
+  s "gtr" <| note("[c4 d3] ~")]
+
+introMelody = seqPLoop[
+  (0,1, s "em2" <| note ("[b a] [g ~] [e] [~] [~] [g a] [b ~] [~]" - 24)),
+  (1,2, s "em2" <| note ("[g] [e6] [~] [e6 e6] [~ [d6 c6]] [d6] [~]" - 24))
+  ] # room 0.1
+
+-- Verion 2
+d2 $ qtrigger 2 $ slow 3 $ s "em2" <| note ("[b a] [g ~] [e] [~] [g a] [b ~] [~]" - 24) # room 0.5
+
+d2 $ qtrigger 2 $ slow 3 $ s "em2" <| note (" [g] [e6] [~] [e6 e6] [ ~ d6] [c6 d6] [~]" - 12) # room 0.1
+
+intro2 = seqPLoop[
+  (0,1, s "em2" <| note ("[b a] [g ~] [e] [~] [g a] [b ~] [~]" - 24)),
+  (1,2,s "em2" <| note (" [g] [e6] [~] [e6 e6] [ ~ d6] [c6 d6] [~]" - 12))
+  ] # room 0.1
+
+-- Bridge
+
+myKalimba1 = stack[
+  s "em2" <| note ("[b a] [g ~] [e] [~] [g a] [b ~] [~]" - 12) # room 0.01,
+  s "em2:1" <| note ("[b a] [g ~] [e] [~] [g a] [b ~] [~]" - 12) # room 0.01]
+
+myKalimba2 = stack[
+  s "em2" <| note ("[g] [e6] [~] [e6 e6] [~ [d6 c6]] [d6] [~]" - 12) # room 0.1,
+  s "em2:1" <| note ("[g] [e6] [~] [e6 e6] [~ [d6 c6]] [d6] [~]" -12) # room 0.1,
+  s "em2:1" <| note ("[g] [e6] [~] [e6 e6] [~ [d6 c6]] [d6] [~]" - 24) # room 0.1]
+
+myStrings1 = stack[
+  s "pluck" <| note ("[g] [e6] [~] [e6 e6] [~ [d6 c6]] [d6] [~]" + 12) # room 0.1,
+  s "pluck" <| note ("[g] [e6] [~] [e6 e6] [~ [d6 c6]] [d6] [~]") # room 0.1,
+  s "pluck" <| note ("[g] [e6] [~] [e6 e6] [~ [d6 c6]] [d6] [~]" - 12) # room 0.1]
+
+myTrumpets1 = stack[
+  s "trump" <| note ("[g] [e6] [~] [e6 e6] [~ [d6 c6]] [d6] [~]" - 12) # room 0.1,
+  s "trump:1" <| note ("[g] [e6] [~] [e6 e6] [~ [d6 c6]] [d6] [~]" - 24) # room 0.1]
+
+-- sequences
+
+kalimbas = seqPLoop[
+  (0,1, myKalimba1),
+  (1,2, myKalimba2)]
+
+kalimString = seqPLoop[
+  (0,1, myKalimba1),
+  (1,2, myStrings1)]
+
+kalimTrump = seqPLoop[
+  (0,1,myKalimba1),
+  (1,2, myTrumpets1)]
+
+-- Tests
+
+d2 $ qtrigger 2 $ slow 4 $ s "em2" <| note ("[b ~] [a ~] [g ~] [~ e ~] [~] [~] [g ~] [a ~] [b ~] [~] [~] [~] [g ~] [e6 ~] [e6~ ] [e6 ~] [e6] [d6 ~] [c6 ~] [d6] [~] [~] [~] [~]" - 24) # room 0.5
+d3 $ qtrigger 3 $ slow 4 $ s "em2:1" <| note ("[b ~] [a ~] [g ~] [~ e ~] [~] [~] [g ~] [a ~] [b ~] [~] [~] [~] [g ~] [e6 ~] [e6~ ] [e6 ~] [e6] [d6 ~] [c6 ~] [d6] [~] [~] [~] [~]") # room 0.5
+
+hush
+
+d4 $ slow 2 $ s "sax:1" <| note ("[b'maj ~] [a'maj g'maj] [~ e'maj ~] [~] [g'maj ~] [a'maj b'maj] [~]")
+
+d4 $ slow 2 $ s "pluck" <| note ("[b'maj ~] [a'maj g'maj] [~ e'maj ~] [~] [g'maj ~] [a'maj b'maj] [~]") # room 0
+
+
+-- SAMPLES
+-- chords # note "c'maj e'min"
+
+d1 $ slow 2 $ s "wind" <| n (run 10) -- actually filtered white noise hits
+d1 $ slow 4 $ s "trump" <| n (run 11)
+d1 $ slow 2 $ s "pluck" <| n (run 11) -- string sounds
+d1 $ slow 16 $ s "sax" <| n (run 22)
+d1 $ slow 4 $ s "mute" <| n (run 28) -- random collection of french horn notes and doubles
+d1 $ slow 4 $ s "newnotes" <| n (run 15)
+d1 $ slow 4 $ s "gtr" <| n (run 3)
+d1 $ s "notes" <| n (run 15)
+d1 $ slow 4 $ s "em2" <| n (run 3) -- 0 and 1 are kalimba, 2 is flute
+
+d1 $ s "tink" <| n (run 5) # speed 0.4 -- high metallic sounds, pitched down iya
+d1 $ s "tok" <| n (run 4) -- four kind of kick sounds
+d1 $ s "sid" <| n (run 12)
+
+hush
+
+-- Beats / Drums
+d1 $ s "realclaps"  -- wisott
+d1 "reverbkick!4" -- wisott
+d1 $ s "house" <| n (run 8) -- quite a nice kit, one pitched sound at 5 ~ Ebm
+d1 $ s "ht" <| n (run 16) -- 16 syn toms, rather similar
+d1 $ s "if" <| n (run 5)
+d1 $ slow 8 $ s "jungbass" <| n (run 20)
+d1 $ slow 4 $ s "hh27" <| n (run 13)
+d1 $ slow 4 $ s "led" # end 0.835 -- drum set
+d1 $ s "lt" <| n (run 4)
+d1 $ slow 2 $ s "lt" <| n (run 16) -- 16 loud synth low toms
+d1 $ s "mouth" <| n (run 4) -- iya short vocal sounds?
+d2 $ s "e" <| n (run 8)
+d3 $ loopAt 2 $ s "alex:1 alex:2"
+d1 $ s "tabla" <| n (run 8)
+d1 $ s "koy" <| note (("bf") - 8) -- low male voices
+d1 $ s "voodoo" <| n (run 8)
